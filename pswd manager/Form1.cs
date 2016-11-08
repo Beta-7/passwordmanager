@@ -13,11 +13,13 @@ using System.Data.SQLite;
 namespace pswd_manager
 {
 
-    
+ 
 
 
     public partial class Form1 : Form
     {
+        public static string username;
+        public static string password;
         public Form1()
         {
             InitializeComponent();
@@ -41,26 +43,87 @@ namespace pswd_manager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(checkBox1.Checked && textBox2.Text == textBox3.Text && textBox1.Text!="" && textBox2.Text!="")
+            string databasefajl = appdatafolder() + "\\" + textBox1.Text + ".sqlite";
+            #region checked
+            if (checkBox1.Checked)
             {
-                string databasefajl = appdatafolder() +"\\"+ textBox1.Text + ".sqlite";
-                string enkriptirandavid = Cryptography.Encrypt("david", textBox2.Text);
-                //enkriptiraj "david" so passwordot na fajlot
-                SQLiteConnection.CreateFile(databasefajl);
-                //kreiraj fajl so ime username.sqlite sto se naoga vo appdata folderot
-                SQLiteConnection dbConnection;
-                dbConnection =
-                new SQLiteConnection("Data Source="+databasefajl+";Version=3;");
-                dbConnection.Open();
-                string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500))";
-                //kreiraj tabela kade sto ke se skladiraat podatocite za veb stranite
-                SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
-                izvrsikomanda.ExecuteNonQuery();
-                string komanda2 = "insert into passwords (url, name) values ('"+enkriptirandavid+ "', '" + enkriptirandavid + "')";
-                //vnesi david dva pati vo tabelata za podocna da se proveri dali passwordot e tocen
-                izvrsikomanda = new SQLiteCommand(komanda2, dbConnection);
-                izvrsikomanda.ExecuteNonQuery();
+                
+                if (textBox2.Text == textBox3.Text)
+                {
+                    if (textBox1.Text != "")
+                    {
+                        if (textBox2.Text != "")
+                        {
+                            if (!File.Exists(databasefajl))
+                            {
 
+                                string enkriptirandavid = Cryptography.Encrypt("david", textBox2.Text);
+                                //enkriptiraj "david" so passwordot na fajlot
+                                SQLiteConnection.CreateFile(databasefajl);
+                                //kreiraj fajl so ime username.sqlite sto se naoga vo appdata folderot
+                                SQLiteConnection dbConnection;
+                                dbConnection =
+                                new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
+                                dbConnection.Open();
+                                string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500))";
+                                //kreiraj tabela kade sto ke se skladiraat podatocite za veb stranite
+                                SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
+                                izvrsikomanda.ExecuteNonQuery();
+                                string komanda2 = "insert into passwords (url, name) values ('" + enkriptirandavid + "', '" + enkriptirandavid + "')";
+                                //vnesi david dva pati vo tabelata za podocna da se proveri dali passwordot e tocen
+                                izvrsikomanda = new SQLiteCommand(komanda2, dbConnection);
+                                izvrsikomanda.ExecuteNonQuery();
+                                dbConnection.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Корисничкото име веке постои");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Немате внесено лозинка");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Немате внесено корисничко име");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Лозинките не се исти");
+                }
+            }
+            #endregion 
+            else
+            {
+                if (File.Exists(databasefajl))
+                {
+                    
+                    SQLiteConnection dbConnection;
+                    dbConnection =
+                    new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
+                    dbConnection.Open();
+                    string sql = "SELECT * FROM passwords ORDER BY id ";
+                    SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {   if (textBox2.Text == Cryptography.Decrypt(reader["URL"].ToString(), "david"))
+                        {
+                            MessageBox.Show("Успешно сте најавени!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Погрешна лозинка");
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Корисничкото име не е регистрирано");
+                }
             }
         }
         private string appdatafolder()
@@ -70,6 +133,16 @@ namespace pswd_manager
             //pateka do %appdata%/common/passwordmanager folderot
             string folder = AppData + "\\passwordmanager";
             return folder;
+        }
+        public string getuser()
+        {
+            username = textBox1.Text;
+            return username;
+        }
+        public string getpassword()
+        {
+            password = textBox2.Text;
+            return password;
         }
     }
     public static class Cryptography

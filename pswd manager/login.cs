@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
@@ -13,26 +8,26 @@ using System.Data.SQLite;
 namespace pswd_manager
 {
 
- 
 
 
-    public partial class Form1 : Form
+
+    public partial class login : Form
     {
         public static string username;
-        public static string password;
-        public Form1()
+        public string password;
+        private static string sharedsecret = "asdasdd";
+        public login()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             System.IO.Directory.CreateDirectory(appdatafolder());
             //najdi go %appdata%  folderot
 
-            textBox1.Text = Cryptography.Encrypt("david", "asd");
-            textBox2.Text = Cryptography.Decrypt(textBox1.Text, "asd");
+
         }
 
 
@@ -44,10 +39,11 @@ namespace pswd_manager
         private void button1_Click(object sender, EventArgs e)
         {
             string databasefajl = appdatafolder() + "\\" + textBox1.Text + ".sqlite";
+
             #region checked
             if (checkBox1.Checked)
             {
-                
+
                 if (textBox2.Text == textBox3.Text)
                 {
                     if (textBox1.Text != "")
@@ -56,8 +52,8 @@ namespace pswd_manager
                         {
                             if (!File.Exists(databasefajl))
                             {
-
-                                string enkriptirandavid = Cryptography.Encrypt("david", textBox2.Text);
+                                sharedsecret = textBox2.Text;
+                                string enkriptirandavid = Cryptography.Encrypt(sharedsecret, textBox2.Text);
                                 //enkriptiraj "david" so passwordot na fajlot
                                 SQLiteConnection.CreateFile(databasefajl);
                                 //kreiraj fajl so ime username.sqlite sto se naoga vo appdata folderot
@@ -74,6 +70,8 @@ namespace pswd_manager
                                 izvrsikomanda = new SQLiteCommand(komanda2, dbConnection);
                                 izvrsikomanda.ExecuteNonQuery();
                                 dbConnection.Close();
+                                checkBox1.Checked = false;
+                                MessageBox.Show("Успешна регистрација");
                             }
                             else
                             {
@@ -100,7 +98,7 @@ namespace pswd_manager
             {
                 if (File.Exists(databasefajl))
                 {
-                    
+                    sharedsecret = textBox2.Text;
                     SQLiteConnection dbConnection;
                     dbConnection =
                     new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
@@ -109,15 +107,25 @@ namespace pswd_manager
                     SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
-                    {   if (textBox2.Text == Cryptography.Decrypt(reader["URL"].ToString(), "david"))
+                    {  // if (textBox2.Text == Cryptography.Decrypt(reader["URL"].ToString(), sharedsecret))
+                        if (Cryptography.Encrypt(textBox2.Text, sharedsecret) == reader["URL"].ToString())
                         {
-                            MessageBox.Show("Успешно сте најавени!");
+                            username = textBox1.Text;
+                            password = textBox2.Text;
+
+                            this.Hide();
+                            mainform form2 = new mainform();
+
+                            form2.ShowDialog();
+                            break;
+
                         }
                         else
                         {
                             MessageBox.Show("Погрешна лозинка");
+
                         }
-                        
+
                     }
                 }
                 else
@@ -136,18 +144,17 @@ namespace pswd_manager
         }
         public string getuser()
         {
-            username = textBox1.Text;
+
             return username;
         }
         public string getpassword()
         {
-            password = textBox2.Text;
+
             return password;
         }
     }
     public static class Cryptography
     {
-        //lord have mercy on my soul
         #region Settings
 
         private static int _iterations = 2;

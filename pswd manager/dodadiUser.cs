@@ -48,9 +48,18 @@ namespace pswd_manager
             dbConnection =
             new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
             dbConnection.Open();
+            MessageBox.Show("konekcija");
             string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword+ "', '" + dbnotes+ "');";
             SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
-            izvrsikomanda.ExecuteNonQuery();
+            MessageBox.Show("izvrsuvam komanda");
+            try
+            {
+                izvrsikomanda.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             dbConnection.Close();
         }
 

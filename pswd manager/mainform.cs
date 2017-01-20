@@ -34,13 +34,13 @@ namespace pswd_manager
             new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
             dbConnection.Open();
             string idbroj ;          //promenliva za skladiranje na id brojot od posledniot rekord
-            string maxid = "SELECT LAST_INSERT_ID();";        //komanda za selektiranje na posledniot rekord
+            string maxid = "SELECT MAX(ID) FROM passwords";        //komanda za selektiranje na posledniot rekord
             string sql = "SELECT * FROM passwords ORDER BY id ";
-            SQLiteCommand maxidkomanda = new SQLiteCommand(sql, dbConnection);
+            SQLiteCommand maxidkomanda = new SQLiteCommand(maxid, dbConnection);
             SQLiteDataReader reader1 = maxidkomanda.ExecuteReader();
             while (reader1.Read())
             {
-                idbroj = reader1["id"].ToString();
+                idbroj = reader1.ToString();
                 MessageBox.Show("id=" + idbroj);
                 break;
             }

@@ -44,25 +44,74 @@ namespace pswd_manager
             dbusername = username.Text;
             dbpassword = password.Text;
             dbnotes = notes.Text;
+            SQLiteConnection.ClearAllPools();
             SQLiteConnection dbConnection;
             dbConnection =
             new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
-            dbConnection.Open();
-            MessageBox.Show("konekcija");
-            string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword+ "', '" + dbnotes+ "');";
-            SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
-            MessageBox.Show("izvrsuvam komanda");
-            try
+            using (var myconnection = new SQLiteConnection(dbConnection))
             {
-                izvrsikomanda.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            dbConnection.Close();
-        }
+                myconnection.Open();
 
+
+                try
+                {
+                    dbConnection.Open();
+                    MessageBox.Show("konekcija");
+                    string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
+                    SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
+                    MessageBox.Show("izvrsuvam komanda");
+
+                    izvrsikomanda.ExecuteNonQuery();
+                    dbConnection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /*  try
+                {
+                    dbConnection.Open();
+                MessageBox.Show("konekcija");
+                string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword+ "', '" + dbnotes+ "');";
+                SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
+                MessageBox.Show("izvrsuvam komanda");
+
+                    izvrsikomanda.ExecuteNonQuery();
+                    dbConnection.Close();
+                }
+                catch(Exception ex)
+                {
+
+                }
+
+            }
+            */
+            }
+        }
         private void URL_TextChanged(object sender, EventArgs e)
         {
 

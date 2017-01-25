@@ -60,18 +60,33 @@ namespace pswd_manager
                                 SQLiteConnection dbConnection;
                                 dbConnection =
                                 new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
-                                dbConnection.Open();
-                                string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500))";
-                                //kreiraj tabela kade sto ke se skladiraat podatocite za veb stranite
-                                SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, dbConnection);
-                                izvrsikomanda.ExecuteNonQuery();
-                                string komanda2 = "insert into passwords (url, name) values ('" + enkriptirandavid + "', '" + enkriptirandavid + "')";
-                                //vnesi david dva pati vo tabelata za podocna da se proveri dali passwordot e tocen
-                                izvrsikomanda = new SQLiteCommand(komanda2, dbConnection);
-                                izvrsikomanda.ExecuteNonQuery();
-                                dbConnection.Close();
-                                checkBox1.Checked = false;
-                                MessageBox.Show("Успешна регистрација");
+                                using (var myconnection = new SQLiteConnection(dbConnection))
+                                {
+                                    myconnection.Open();
+
+
+                                    try
+                                    {
+                                        dbConnection.Open();
+                                        MessageBox.Show("konekcija");
+                                        string komanda2 = "insert into passwords (url, name) values ('" + enkriptirandavid + "', '" + enkriptirandavid + "')";
+                                        SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda2, dbConnection);
+                                        string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500))";
+                                        SQLiteCommand izvrsikomanda2 = new SQLiteCommand(komanda, dbConnection);
+
+                                        izvrsikomanda2.ExecuteNonQuery();
+                                        izvrsikomanda.ExecuteNonQuery();
+                                        dbConnection.Close();
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+
+                                    checkBox1.Checked = false;
+                                    MessageBox.Show("Успешна регистрација");
+                                }
+
                             }
                             else
                             {
@@ -113,10 +128,12 @@ namespace pswd_manager
                             username = textBox1.Text;
                             password = textBox2.Text;
 
-                            this.Hide();
+                            reader.Close();
+                            dbConnection.Close();
                             mainform form2 = new mainform();
 
                             form2.ShowDialog();
+                            this.Close();
                             break;
 
                         }

@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Data.SQLite;
 using System.Text;
 using System.IO;
+
 namespace pswd_manager
 {
     public partial class mainform : Form
@@ -32,52 +33,74 @@ namespace pswd_manager
             SQLiteConnection dbConnection;
             dbConnection =
             new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
-            dbConnection.Open();
-            string idbroj ;          //promenliva za skladiranje na id brojot od posledniot rekord
-            string maxid = "SELECT MAX(ID) FROM passwords";        //komanda za selektiranje na posledniot rekord
-            string sql = "SELECT * FROM passwords ORDER BY id ";
-            SQLiteCommand maxidkomanda = new SQLiteCommand(maxid, dbConnection);
-            SQLiteDataReader reader1 = maxidkomanda.ExecuteReader();
-            while (reader1.Read())
+            try
             {
-                idbroj = reader1.ToString();
-                MessageBox.Show("id=" + idbroj);
-                break;
+                    dbConnection.Open();
+                   int idbroj = 1;          //promenliva za skladiranje na id brojot od posledniot rekord
+                   string maxid = "SELECT MAX(ID) FROM passwords;";        //komanda za selektiranje na posledniot rekord
+                   string sql = "SELECT * FROM passwords ORDER BY id ";
+                   SQLiteCommand maxidkomanda = new SQLiteCommand(maxid, dbConnection);
+                   SQLiteDataReader reader1 = maxidkomanda.ExecuteReader();
+                   while (reader1.Read())
+                   {
+                       idbroj = reader1.GetInt32(0);
+                       break;
+                   }
+                   reader1.Close();
+                   SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+                   SQLiteDataReader reader = command.ExecuteReader();
+                  while (reader.Read())
+                   {
+                       if (int.Parse(reader["id"].ToString()) != idbroj)
+                       {
+                           if (reader["id"].ToString() != "1")
+                           {
+                               dbid = reader["id"].ToString();
+                               dburl = reader["URL"].ToString();
+                               dbname = reader["name"].ToString();
+                               dbusername = reader["username"].ToString();
+                               dbpassword = reader["password"].ToString();
+                               dbnotes = reader["notes"].ToString();
+                               dataGridView1.Rows.Add();
+                               dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid) - 1).ToString();
+                               dataGridView1.Rows[int.Parse(dbid) - 2].Cells[1].Value = dburl;
+                               dataGridView1.Rows[int.Parse(dbid) - 2].Cells[2].Value = dbname;
+                               dataGridView1.Rows[int.Parse(dbid) - 2].Cells[3].Value = dbusername;
+                               dataGridView1.Rows[int.Parse(dbid) - 2].Cells[4].Value = dbpassword;
+                               dataGridView1.Rows[int.Parse(dbid) - 2].Cells[5].Value = dbnotes;
+
+                           }
+                       }
+                       else
+                       {
+                           dbid = reader["id"].ToString();
+                           dburl = reader["URL"].ToString();
+                           dbname = reader["name"].ToString();
+                           dbusername = reader["username"].ToString();
+                           dbpassword = reader["password"].ToString();
+                           dbnotes = reader["notes"].ToString();
+                           dataGridView1.Rows.Add();
+                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid) - 1).ToString();
+                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[1].Value = dburl;
+                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[2].Value = dbname;
+                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[3].Value = dbusername;
+                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[4].Value = dbpassword;
+                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[5].Value = dbnotes;
+                           break;
+                       }
+                   }
+                   dbConnection.Dispose();
+                   dbConnection.Close();
+                   reader.Close();
+                   
+               
             }
-            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            catch (Exception ex)
             {
-                if (reader["id"].ToString() != maxid)
-                {
-                    if (reader["id"].ToString() != "1")
-                    {
-                        dbid = reader["id"].ToString();
-                        dburl = reader["URL"].ToString();
-                        dbname = reader["name"].ToString();
-                        dbusername = reader["username"].ToString();
-                        dbpassword = reader["password"].ToString();
-                        dbnotes = reader["notes"].ToString();
-                        dataGridView1.Rows.Add();
-                        dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid) - 1).ToString();
-                        dataGridView1.Rows[int.Parse(dbid) - 2].Cells[1].Value = dburl;
-                        dataGridView1.Rows[int.Parse(dbid) - 2].Cells[2].Value = dbname;
-                        dataGridView1.Rows[int.Parse(dbid) - 2].Cells[3].Value = dbusername;
-                        dataGridView1.Rows[int.Parse(dbid) - 2].Cells[4].Value = dbpassword;
-                        dataGridView1.Rows[int.Parse(dbid) - 2].Cells[5].Value = dbnotes;
-                        MessageBox.Show(dbid);
-
-                    }
-               }
-                else
-                {
-                  MessageBox.Show("zatvoram konekcija");
-                    dbConnection.Close();
-                }
+               // MessageBox.Show(ex.Message);
             }
 
-
-        }
+            }
         private string fajl()
         {
             login fasdorm1 = new login();

@@ -14,7 +14,7 @@ namespace pswd_manager
     public partial class login : Form
     {
         public static string username;
-        public string password;
+        public static string password;
         private static string sharedsecret = "asdasdd";
         public login()
         {
@@ -67,16 +67,17 @@ namespace pswd_manager
 
                                     try
                                     {
-                                        dbConnection.Open();
+                                        
                                         MessageBox.Show("konekcija");
                                         string komanda2 = "insert into passwords (url, name) values ('" + enkriptirandavid + "', '" + enkriptirandavid + "')";
-                                        SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda2, dbConnection);
+                                        SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda2, myconnection);
                                         string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500))";
-                                        SQLiteCommand izvrsikomanda2 = new SQLiteCommand(komanda, dbConnection);
+                                        SQLiteCommand izvrsikomanda2 = new SQLiteCommand(komanda, myconnection);
 
                                         izvrsikomanda2.ExecuteNonQuery();
                                         izvrsikomanda.ExecuteNonQuery();
-                                        dbConnection.Close();
+                                        
+                                        myconnection.Close();
                                     }
                                     catch (Exception ex)
                                     {
@@ -127,6 +128,7 @@ namespace pswd_manager
                         {
                             username = textBox1.Text;
                             password = textBox2.Text;
+
 
                             reader.Close();
                             dbConnection.Close();

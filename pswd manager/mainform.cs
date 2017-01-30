@@ -81,10 +81,11 @@ namespace pswd_manager
                         //    dbid = Cryptography.Decrypt(dbid, masterpassword);
                         //    dmessage("dekriptirav");
                             dataGridView1.Rows.Add();
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid)).ToString();
+                            dmessage(dburl);
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbname, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbusername, masterpassword);
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
 
@@ -100,16 +101,16 @@ namespace pswd_manager
                         dbnotes = reader["notes"].ToString();
                         
                     //    dburl = Cryptography.Decrypt(dburl, masterpassword);
-                        dmessage(Cryptography.Decrypt("HKj7VNAH1QKNlBBhruDBnw==","asd"));
+                    //   dmessage(Cryptography.Decrypt("HKj7VNAH1QKNlBBhruDBnw==","asd"));
                    //     dbname = Cryptography.Decrypt(dbname, masterpassword);
                   //      dbusername = Cryptography.Decrypt(dbusername, masterpassword);
                   //      dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
                   //      dbnotes = Cryptography.Decrypt(dbid, masterpassword);
                         dataGridView1.Rows.Add();
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid)).ToString();
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbname, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbusername, masterpassword);
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
                         MessageBox.Show("last record");
@@ -183,14 +184,14 @@ namespace pswd_manager
                               dbpassword = reader["password"].ToString();
                               dbnotes = reader["notes"].ToString();
                        
-                            dburl = Cryptography.Decrypt(dburl, masterpassword);
-                            dbname = Cryptography.Decrypt(dbname, masterpassword);
-                            dbusername = Cryptography.Decrypt(dbusername, masterpassword);
-                            dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
-                            dbnotes = Cryptography.Decrypt(dbid, masterpassword);
-                            MessageBox.Show(dbid);
+                        //    dburl = Cryptography.Decrypt(dburl, masterpassword);
+                         //   dbname = Cryptography.Decrypt(dbname, masterpassword);
+                        //    dbusername = Cryptography.Decrypt(dbusername, masterpassword);
+                        //    dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
+                        //    dbnotes = Cryptography.Decrypt(dbid, masterpassword);
+                         //   MessageBox.Show(dbid);
                             dataGridView1.Rows.Add();
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid)).ToString();
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
@@ -208,14 +209,14 @@ namespace pswd_manager
                           dbpassword = reader["password"].ToString();
                           dbnotes = reader["notes"].ToString();
                       
-                        dburl = Cryptography.Decrypt(dburl, masterpassword);
-                        dbname = Cryptography.Decrypt(dbname, masterpassword);
-                        dbusername = Cryptography.Decrypt(dbusername, masterpassword);
-                        dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
-                        dbnotes = Cryptography.Decrypt(dbid, masterpassword);
-                        MessageBox.Show(dbid);
+                   //     dburl = Cryptography.Decrypt(dburl, masterpassword);
+                    //    dbname = Cryptography.Decrypt(dbname, masterpassword);
+                  //      dbusername = Cryptography.Decrypt(dbusername, masterpassword);
+                  //      dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
+                  ////      dbnotes = Cryptography.Decrypt(dbid, masterpassword);
+                  //      MessageBox.Show(dbid);
                         dataGridView1.Rows.Add();
-                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid) - 1).ToString();
+                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid)).ToString();
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
@@ -243,6 +244,35 @@ namespace pswd_manager
           {
 
           }
-       
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int selectedid = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells["id"].Value.ToString());
+            SQLiteConnection dbConnection;
+            dbConnection =
+            new SQLiteConnection("Data Source=" + fajl() + ".;Version=3;");
+            using (var myconnection = new SQLiteConnection(dbConnection))
+            {
+                myconnection.Open();
+                dmessage(selectedid.ToString());
+
+                try
+                {
+
+                    
+                    string komanda = "delete from passwords where id = " + selectedid + ";";
+                    SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
+                   izvrsikomanda.ExecuteNonQuery();
+
+                    myconnection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                
+            }
+        }
     }
 }

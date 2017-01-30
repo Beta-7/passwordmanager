@@ -27,7 +27,7 @@ namespace pswd_manager
             login formalogin = new login();
         
             masterpassword = formalogin.getpassword();
-            MessageBox.Show(masterpassword);
+            
             
         }
 
@@ -50,11 +50,11 @@ namespace pswd_manager
             dbpassword = password.Text;
             dbnotes = notes.Text;
             
-            dburl = Cryptography.Encrypt(masterpassword, dburl);
-            dbname = Cryptography.Encrypt(masterpassword,dbname );
-            dbusername = Cryptography.Encrypt(dbusername, dbusername);
-            dbpassword = Cryptography.Encrypt(dbpassword, dbpassword);
-            dbnotes = Cryptography.Encrypt(dbnotes, dbnotes);
+            dburl = Cryptography.Encrypt(dburl,masterpassword);
+            dbname = Cryptography.Encrypt(dbname, masterpassword);
+            dbusername = Cryptography.Encrypt(dbusername, masterpassword);
+            dbpassword = Cryptography.Encrypt(dbpassword, masterpassword);
+            dbnotes = Cryptography.Encrypt(dbnotes, masterpassword);
 
             SQLiteConnection.ClearAllPools();
             SQLiteConnection dbConnection;

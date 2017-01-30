@@ -18,6 +18,8 @@ namespace pswd_manager
         public static string dbusername;
         public static string dbpassword;
         public static string dbnotes;
+        int offset = 2;   //se koristi za namaluvanje na id broevite za 2 bidejki id 1 ne se pokazuva zs tamu se cuva master passwordot
+
         public mainform()
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace pswd_manager
             login fasdorm1 = new login();
             masterusername = fasdorm1.getuser();
             masterpassword = fasdorm1.getpassword();
+            
             //zemi gi glavnite kredincijali od formata 1
             dataGridView1.Rows.Clear();
             SQLiteConnection dbConnection;
@@ -54,7 +57,7 @@ namespace pswd_manager
                 reader1.Close();
                 SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
                 SQLiteDataReader reader = command.ExecuteReader();
-                int offset = 2;
+                
                 while (reader.Read())
                 {
                     if (int.Parse(reader["id"].ToString()) <= idbroj)
@@ -67,21 +70,23 @@ namespace pswd_manager
                             dbusername = reader["username"].ToString();
                             dbpassword = reader["password"].ToString();
                             dbnotes = reader["notes"].ToString();
-                            dmessage("dekriptiram");
+                        //    dmessage("dekriptiram");
+
+                          //  dburl = Cryptography.Decrypt(dburl, masterpassword);
+                          //  dmessage(dburl);
                             
-                            dburl = Cryptography.Decrypt(dburl, masterpassword);
-                            dbname = Cryptography.Decrypt(dbname, masterpassword);
-                            dbusername = Cryptography.Decrypt(dbusername, masterpassword);
-                            dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
-                            dbnotes = Cryptography.Decrypt(dbid, masterpassword);
-                            dmessage("dekriptirav");
+                          //  dbname = Cryptography.Decrypt(dbname, masterpassword);
+                         //   dbusername = Cryptography.Decrypt(dbusername, masterpassword);
+                         //   dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
+                        //    dbid = Cryptography.Decrypt(dbid, masterpassword);
+                        //    dmessage("dekriptirav");
                             dataGridView1.Rows.Add();
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = dburl;
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = dbname;
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = dbusername;
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = dbpassword;
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = dbnotes;
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
 
                         }
                     }
@@ -94,18 +99,19 @@ namespace pswd_manager
                         dbpassword = reader["password"].ToString();
                         dbnotes = reader["notes"].ToString();
                         
-                        dburl = Cryptography.Decrypt(dburl, masterpassword);
-                        dbname = Cryptography.Decrypt(dbname, masterpassword);
-                        dbusername = Cryptography.Decrypt(dbusername, masterpassword);
-                        dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
-                        dbnotes = Cryptography.Decrypt(dbid, masterpassword);
+                    //    dburl = Cryptography.Decrypt(dburl, masterpassword);
+                        dmessage(Cryptography.Decrypt("HKj7VNAH1QKNlBBhruDBnw==","asd"));
+                   //     dbname = Cryptography.Decrypt(dbname, masterpassword);
+                  //      dbusername = Cryptography.Decrypt(dbusername, masterpassword);
+                  //      dbpassword = Cryptography.Decrypt(dbpassword, masterpassword);
+                  //      dbnotes = Cryptography.Decrypt(dbid, masterpassword);
                         dataGridView1.Rows.Add();
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = dburl;
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = dbname;
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = dbusername;
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = dbpassword;
-                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = dbnotes;
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
                         MessageBox.Show("last record");
                         break;
                     }
@@ -184,14 +190,14 @@ namespace pswd_manager
                             dbnotes = Cryptography.Decrypt(dbid, masterpassword);
                             MessageBox.Show(dbid);
                             dataGridView1.Rows.Add();
-                              dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid) - 1).ToString();
-                              dataGridView1.Rows[int.Parse(dbid) - 2].Cells[1].Value = dburl;
-                              dataGridView1.Rows[int.Parse(dbid) - 2].Cells[2].Value = dbname;
-                              dataGridView1.Rows[int.Parse(dbid) - 2].Cells[3].Value = dbusername;
-                              dataGridView1.Rows[int.Parse(dbid) - 2].Cells[4].Value = dbpassword;
-                              dataGridView1.Rows[int.Parse(dbid) - 2].Cells[5].Value = dbnotes;
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
 
-                          }
+                        }
                       }
                       else
                       {
@@ -210,12 +216,13 @@ namespace pswd_manager
                         MessageBox.Show(dbid);
                         dataGridView1.Rows.Add();
                           dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid) - 1).ToString();
-                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[1].Value = dburl;
-                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[2].Value = dbname;
-                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[3].Value = dbusername;
-                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[4].Value = dbpassword;
-                          dataGridView1.Rows[int.Parse(dbid) - 2].Cells[5].Value = dbnotes;
-                          break;
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbusername, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                        dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
+                        break;
                       }
                   }
                   dbConnection.Dispose();

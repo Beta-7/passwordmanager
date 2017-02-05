@@ -65,10 +65,20 @@ namespace pswd_manager
                 myconnection.Open();
                 try
                 {
+                    SQLiteCommand command = new SQLiteCommand(myconnection);
+                    command.CommandText =
+                  "insert into passwords (url, name, username, password, notes) values (@url, @name, @username, @password, @notes);";
+                    command.Parameters.AddWithValue("@url", dburl);
+                    command.Parameters.AddWithValue("@name", dbname);
+                    command.Parameters.AddWithValue("@username", dbusername);
+                    command.Parameters.AddWithValue("@password", dbpassword);
+                    command.Parameters.AddWithValue("@notes", dbnotes);
                     
-                    string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
-                    SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
-                                        izvrsikomanda.ExecuteNonQuery();
+
+
+               //     string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
+              //      SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
+                    command.ExecuteNonQuery();
                     myconnection.Close();
                 }
                 catch (Exception ex)

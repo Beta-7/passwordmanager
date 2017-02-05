@@ -143,9 +143,22 @@ namespace pswd_manager
         {
             dodadiUser asd = new dodadiUser();
             asd.Show();
+            updateGrid();
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {
+            updateGrid();
+
+        }
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        public void updateGrid()
         {
             login fasdorm1 = new login();
             masterusername = fasdorm1.getuser();
@@ -184,7 +197,7 @@ namespace pswd_manager
                             dbpassword = reader["password"].ToString();
                             dbnotes = reader["notes"].ToString();
 
-                            
+
                             dataGridView1.Rows.Add();
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid)).ToString();
                             dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
@@ -204,7 +217,7 @@ namespace pswd_manager
                         dbpassword = reader["password"].ToString();
                         dbnotes = reader["notes"].ToString();
 
-                       
+
                         dataGridView1.Rows.Add();
                         dataGridView1.Rows[int.Parse(dbid) - 2].Cells[0].Value = (int.Parse(dbid)).ToString();
                         dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid) - offset).ToString();
@@ -228,13 +241,6 @@ namespace pswd_manager
             }
 
         }
-
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             #region asd 
@@ -355,6 +361,7 @@ namespace pswd_manager
                 dbConnection.Open();
                 command.ExecuteNonQuery();
                 dbConnection.Close();
+                updateGrid();
             }
             catch (Exception ex)
             {

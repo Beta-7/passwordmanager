@@ -55,6 +55,12 @@
     <Compile Include="dodadiUser.Designer.cs">
       <DependentUpon>dodadiUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="generatePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="generatePassword.Designer.cs">
+      <DependentUpon>generatePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="dodadiUser.resx">
       <DependentUpon>dodadiUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="generatePassword.resx">
+      <DependentUpon>generatePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>

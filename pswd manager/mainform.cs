@@ -89,29 +89,31 @@ namespace pswd_manager
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (int.Parse(reader["id"].ToString()) <= idbroj)
+                    if (int.Parse(reader["id"].ToString()) <= idbroj )
                     {
-                        if (reader["id"].ToString() != "1")
+                        if (reader["id"].ToString() != "1" )
                         {
-                            dbid = reader["id"].ToString();
-                            dburl = reader["URL"].ToString();
-                            dbname = reader["name"].ToString();
-                            dbusername = reader["username"].ToString();
-                            dbpassword = reader["password"].ToString();
-                            dbnotes = reader["notes"].ToString();
+                            if (reader["visible"].ToString() == "1")
+                            {
+                                dbid = reader["id"].ToString();
+                                dburl = reader["URL"].ToString();
+                                dbname = reader["name"].ToString();
+                                dbusername = reader["username"].ToString();
+                                dbpassword = reader["password"].ToString();
+                                dbnotes = reader["notes"].ToString();
 
 
-                            dataGridView1.Rows.Add();
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid)).ToString();
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbname, masterpassword);
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbusername, masterpassword);
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
-                            dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
-
+                                dataGridView1.Rows.Add();
+                                dataGridView1.Rows[int.Parse(dbid) - offset].Cells[0].Value = (int.Parse(dbid)).ToString();
+                                dataGridView1.Rows[int.Parse(dbid) - offset].Cells[1].Value = Cryptography.Decrypt(dburl, masterpassword);
+                                dataGridView1.Rows[int.Parse(dbid) - offset].Cells[2].Value = Cryptography.Decrypt(dbname, masterpassword);
+                                dataGridView1.Rows[int.Parse(dbid) - offset].Cells[3].Value = Cryptography.Decrypt(dbusername, masterpassword);
+                                dataGridView1.Rows[int.Parse(dbid) - offset].Cells[4].Value = Cryptography.Decrypt(dbpassword, masterpassword);
+                                dataGridView1.Rows[int.Parse(dbid) - offset].Cells[5].Value = Cryptography.Decrypt(dbnotes, masterpassword);
+                            }
                         }
                     }
-                    else
+                    else if (int.Parse(reader["id"].ToString()) >= idbroj)
                     {
                         dbid = reader["id"].ToString();
                         dburl = reader["URL"].ToString();
@@ -274,8 +276,99 @@ namespace pswd_manager
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int selectedid = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells["id"].Value.ToString());
+            SQLiteConnection dbConnection;
+            dbConnection =
+            new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
+            try
+            {
+                dbConnection.Open();
+                SQLiteCommand command = new SQLiteCommand(dbConnection);
+                command.CommandText =
+              "UPDATE passwords SET url = @url, name= @name, username= @username, password= @password, notes =@notes, visible= @visible WHERE id= @id;";
+                command.Parameters.AddWithValue("@url", Cryptography.Encrypt(textBox1.Text, masterpassword));
+                command.Parameters.AddWithValue("@name", Cryptography.Encrypt(textBox2.Text, masterpassword));
+                command.Parameters.AddWithValue("@username", Cryptography.Encrypt(textBox3.Text, masterpassword));
+                command.Parameters.AddWithValue("@password", Cryptography.Encrypt(textBox4.Text, masterpassword));
+                command.Parameters.AddWithValue("@notes", Cryptography.Encrypt(textBox5.Text, masterpassword));
+                command.Parameters.AddWithValue("@id", selectedid);
+                command.Parameters.AddWithValue("@visible", 0);
+
+                command.ExecuteNonQuery();
+                dbConnection.Close();
+                updateGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                if (dataGridView1.SelectedRows.Count < 2)
+                {
+
+                    int selectedid = int.Parse(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells["id"].Value.ToString());
+                    SQLiteConnection dbConnection;
+                    dbConnection =
+                    new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
+                    try
+                    {
+                        dbConnection.Open();
+                        string sql = "SELECT * FROM passwords WHERE ID=" + selectedid + ";";
+                        SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+                        SQLiteDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            textBox1.Text = Cryptography.Decrypt(reader["URL"].ToString(), masterpassword);
+                            textBox2.Text = Cryptography.Decrypt(reader["name"].ToString(), masterpassword);
+                            textBox3.Text = Cryptography.Decrypt(reader["username"].ToString(), masterpassword);
+                            textBox4.Text = Cryptography.Decrypt(reader["password"].ToString(), masterpassword);
+                            textBox5.Text = Cryptography.Decrypt(reader["notes"].ToString(), masterpassword);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                   
+
+                }
+
+
+
+            }
+            else
+            {
+                #region invisible
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
+                textBox1.Visible = false;
+                textBox2.Visible = false;
+                textBox3.Visible = false;
+                textBox4.Visible = false;
+                textBox5.Visible = false;
+                button4.Visible = false;
+                button5.Visible = false;
+                #endregion
+            }
+
+
+        }
     }
     }
+    
 
     
 

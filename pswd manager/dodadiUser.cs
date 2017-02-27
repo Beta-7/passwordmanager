@@ -35,6 +35,10 @@ namespace pswd_manager
         {
 
         }
+        public void setPassword(string password)
+        {
+            this.password.Text = password;
+        }
         private string fajl()
         {
             login fasdorm1 = new login();
@@ -44,6 +48,8 @@ namespace pswd_manager
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (URL.Text != "" && ime.Text != "" && username.Text != "" && password.Text != "")
+            { 
             dburl = URL.Text;
             dbname = ime.Text;
             dbusername = username.Text;
@@ -60,53 +66,39 @@ namespace pswd_manager
             SQLiteConnection dbConnection;
             dbConnection =
             new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
-            using (var myconnection = new SQLiteConnection(dbConnection))
-            {
-                myconnection.Open();
-                try
+                using (var myconnection = new SQLiteConnection(dbConnection))
                 {
-                   SQLiteCommand command = new SQLiteCommand(myconnection);
-                   command.CommandText =
-                   "insert into passwords (url, name, username, password, notes) values (@url, @name, @username, @password, @notes);";
-                   command.Parameters.AddWithValue("@url", dburl);
-                   command.Parameters.AddWithValue("@name", dbname);
-                   command.Parameters.AddWithValue("@username", dbusername);
-                   command.Parameters.AddWithValue("@password", dbpassword);
-                   command.Parameters.AddWithValue("@notes", dbnotes);
-                    
+                    myconnection.Open();
+                    try
+                    {
+                        SQLiteCommand command = new SQLiteCommand(myconnection);
+                        command.CommandText =
+                        "insert into passwords (url, name, username, password, notes, visible) values (@url, @name, @username, @password, @notes, @visible);";
+                        command.Parameters.AddWithValue("@url", dburl);
+                        command.Parameters.AddWithValue("@name", dbname);
+                        command.Parameters.AddWithValue("@username", dbusername);
+                        command.Parameters.AddWithValue("@password", dbpassword);
+                        command.Parameters.AddWithValue("@notes", dbnotes);
+                        command.Parameters.AddWithValue("@visible", 1);
 
 
-                  //  string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
-                 //   SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
-                  //  izvrsikomanda.ExecuteNonQuery();
-                    command.ExecuteNonQuery();
-                    myconnection.Close();
+                        //  string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
+                        //   SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
+                        //  izvrsikomanda.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
+                        myconnection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+
+
+
+
+
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -115,6 +107,13 @@ namespace pswd_manager
         }
         private void URL_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            generatePassword asd = new generatePassword();
+            asd.Show();
 
         }
     }

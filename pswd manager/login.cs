@@ -68,18 +68,18 @@ namespace pswd_manager
                                     try
                                     {
                                         
-                                        MessageBox.Show("konekcija");
+                                        
                                         
                                         string sqlinsert = "insert into passwords (url, name) values ('"+enkriptirandavid+ "','" + enkriptirandavid + "');";
                                         //    sqlinsert.Parameters.AddWithValue("@url", enkriptirandavid);
                                         SQLiteCommand sqlinsert1 = new SQLiteCommand(sqlinsert, myconnection);
-                                        string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500))";
+                                        string komanda = "create table passwords (id integer primary key autoincrement,URL varchar(150), name varchar(150), username varchar(150), password varchar(150), notes varchar(1500), visible integer)";
                                         SQLiteCommand izvrsikomanda2 = new SQLiteCommand(komanda, myconnection);
 
                                         izvrsikomanda2.ExecuteNonQuery();
-                                        MessageBox.Show("kreiram tabela");
+                                       
                                         sqlinsert1.ExecuteNonQuery();
-                                        MessageBox.Show("vnesuvam podatoci");
+                                        
 
                                         myconnection.Close();
                                     }

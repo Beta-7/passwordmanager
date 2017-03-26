@@ -106,7 +106,7 @@ namespace pswd_manager
             }
         }
         private void URL_TextChanged(object sender, EventArgs e)
-        {
+            {
 
         }
 

@@ -25,7 +25,7 @@ namespace pswd_manager
         {
 
             System.IO.Directory.CreateDirectory(appdatafolder());
-            //najdi go %appdata%  folderot
+            //create a folder in %appdata% named password manager, in case it doesn't exist
 
 
         }
@@ -33,7 +33,8 @@ namespace pswd_manager
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            textBox3.Visible = checkBox1.Checked;
+            textBox3.Visible = checkBox1.Checked;  
+            //if the checkbox is checked, show another textbox to input the password again
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,29 +42,27 @@ namespace pswd_manager
             string databasefajl = appdatafolder() + "\\" + textBox1.Text + ".sqlite";
 
             #region checked
-            if (checkBox1.Checked)
+            if (checkBox1.Checked)    //if they selected the register option
             {
 
-                if (textBox2.Text == textBox3.Text)
+                if (textBox2.Text == textBox3.Text)   //check if both of the passwords are the same
                 {
-                    if (textBox1.Text != "")
+                    if (textBox1.Text != "")            //check if the first password field is empty
                     {
-                        if (textBox2.Text != "")
+                        if (textBox2.Text != "")        //check if the second password field is empty
                         {
-                            if (!File.Exists(databasefajl))
+                            if (!File.Exists(databasefajl)) //if the file doesn't exist already, as in the username hasn't been registered
                             {
-                                sharedsecret = textBox2.Text;
-                                string enkriptirandavid = Cryptography.Encrypt(sharedsecret, textBox2.Text);
-                                //enkriptiraj "david" so passwordot na fajlot
-                                SQLiteConnection.CreateFile(databasefajl);
-                                //kreiraj fajl so ime username.sqlite sto se naoga vo appdata folderot
+                                sharedsecret = textBox2.Text;           
+                                string enkriptirandavid = Cryptography.Encrypt(sharedsecret, textBox2.Text);  //encrypt the password with itself
+                                SQLiteConnection.CreateFile(databasefajl);      //create a db file in %appdata% named username.sqlite
                                 SQLiteConnection dbConnection;
                                 dbConnection =
                                 new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
                                 using (var myconnection = new SQLiteConnection(dbConnection))
                                 {
                                     myconnection.Open();
-
+                                    //open the .sqlite file
 
                                     try
                                     {
@@ -78,9 +77,9 @@ namespace pswd_manager
                                         SQLiteCommand izvrsikomanda2 = new SQLiteCommand(komanda, myconnection);
 
                                         izvrsikomanda2.ExecuteNonQuery();
-                                       
+                                       //create a table named passwords
                                         sqlinsert1.ExecuteNonQuery();
-                                        
+                                        //fill the first record's first 2 fields with the encrypted password
 
                                         myconnection.Close();
                                     }
@@ -91,45 +90,53 @@ namespace pswd_manager
 
                                     checkBox1.Checked = false;
                                     MessageBox.Show("Успешна регистрација");
+                                    //succesfull registration
                                 }
 
                             }
                             else
                             {
                                 MessageBox.Show("Корисничкото име веке постои");
+                                //username already exists
                             }
                         }
                         else
                         {
                             MessageBox.Show("Немате внесено лозинка");
+                            //no password entered
                         }
                     }
                     else
                     {
                         MessageBox.Show("Немате внесено корисничко име");
+                        //no username entered
                     }
                 }
                 else
                 {
                     MessageBox.Show("Лозинките не се исти");
+                    //password mismatch
                 }
             }
             #endregion 
             else
             {
-                if (File.Exists(databasefajl))
+                if (File.Exists(databasefajl))      //if the file exists already, when the username has been registered
                 {
                     sharedsecret = textBox2.Text;
                     SQLiteConnection dbConnection;
                     dbConnection =
                     new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
                     dbConnection.Open();
+                    //connect to the .sqlite file
                     string sql = "SELECT * FROM passwords ORDER BY id ";
                     SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
                     SQLiteDataReader reader = command.ExecuteReader();
+                    //get the records inside
                     while (reader.Read())
                     {  // if (textBox2.Text == Cryptography.Decrypt(reader["URL"].ToString(), sharedsecret))
                         if (Cryptography.Encrypt(textBox2.Text, sharedsecret) == reader["URL"].ToString())
+                       //encrypt the entered password with the one that is in the first record of the file
                         {
                             username = textBox1.Text;
                             password = textBox2.Text;
@@ -138,7 +145,7 @@ namespace pswd_manager
                             reader.Close();
                             dbConnection.Close();
                             mainform form2 = new mainform();
-
+                            //close the SQLITE connection and open the main form.
                             form2.ShowDialog();
                             this.Close();
                             break;
@@ -147,6 +154,9 @@ namespace pswd_manager
                         else
                         {
                             MessageBox.Show("Погрешна лозинка");
+                            //wrong password
+                            reader.Close();
+                            dbConnection.Close();
 
                         }
 
@@ -155,6 +165,7 @@ namespace pswd_manager
                 else
                 {
                     MessageBox.Show("Корисничкото име не е регистрирано");
+                    //username not registered
                 }
             }
         }
@@ -162,19 +173,22 @@ namespace pswd_manager
         {
             string AppData = Environment.ExpandEnvironmentVariables("%AppData%");
 
-            //pateka do %appdata%/common/passwordmanager folderot
+            //path to %appdata%
             string folder = AppData + "\\passwordmanager";
             return folder;
+            //return the path to the passwordmanager folder
         }
         public string getuser()
         {
 
             return username;
+            //return the entered username so it can be used in the next form
         }
         public string getpassword()
         {
 
             return password;
+            //return the entered password so it can be used in the next form
         }
     }
     public static class Cryptography

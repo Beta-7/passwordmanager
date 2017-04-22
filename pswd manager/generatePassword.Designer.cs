@@ -136,6 +136,8 @@
             // mali
             // 
             this.mali.AutoSize = true;
+            this.mali.Checked = true;
+            this.mali.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mali.Location = new System.Drawing.Point(192, 35);
             this.mali.Name = "mali";
             this.mali.Size = new System.Drawing.Size(15, 14);
@@ -145,6 +147,8 @@
             // golemi
             // 
             this.golemi.AutoSize = true;
+            this.golemi.Checked = true;
+            this.golemi.CheckState = System.Windows.Forms.CheckState.Checked;
             this.golemi.Location = new System.Drawing.Point(192, 12);
             this.golemi.Name = "golemi";
             this.golemi.Size = new System.Drawing.Size(15, 14);

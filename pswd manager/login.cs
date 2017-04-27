@@ -23,11 +23,8 @@ namespace pswd_manager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             System.IO.Directory.CreateDirectory(appdatafolder());
             //create a folder in %appdata% named password manager, in case it doesn't exist
-
-
         }
 
 

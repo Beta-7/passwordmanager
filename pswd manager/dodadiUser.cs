@@ -21,20 +21,26 @@ namespace pswd_manager
         public static string dbusername;
         public static string dbpassword;
         public static string dbnotes;
+        public mainform caller;
         public dodadiUser()
+        {
+            Init();
+        }
+
+        public void Init()
         {
             InitializeComponent();
             login formalogin = new login();
-        
+
             masterpassword = formalogin.getpassword();
-            
-            
         }
 
-        private void dodadiUser_Load(object sender, EventArgs e)
+        public dodadiUser(mainform caller)
         {
-
+            this.caller = caller;
+            Init();
         }
+        
         public void setPassword(string password)
         {
             this.password.Text = password;
@@ -46,26 +52,26 @@ namespace pswd_manager
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddEntry()
         {
             if (URL.Text != "" && ime.Text != "" && username.Text != "" && password.Text != "")
-            { 
-            dburl = URL.Text;
-            dbname = ime.Text;
-            dbusername = username.Text;
-            dbpassword = password.Text;
-            dbnotes = notes.Text;
-            
-            dburl = Cryptography.Encrypt(dburl,masterpassword);
-            dbname = Cryptography.Encrypt(dbname, masterpassword);
-            dbusername = Cryptography.Encrypt(dbusername, masterpassword);
-            dbpassword = Cryptography.Encrypt(dbpassword, masterpassword);
-            dbnotes = Cryptography.Encrypt(dbnotes, masterpassword);
+            {
+                dburl = URL.Text;
+                dbname = ime.Text;
+                dbusername = username.Text;
+                dbpassword = password.Text;
+                dbnotes = notes.Text;
 
-            SQLiteConnection.ClearAllPools();
-            SQLiteConnection dbConnection;
-            dbConnection =
-            new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
+                dburl = Cryptography.Encrypt(dburl, masterpassword);
+                dbname = Cryptography.Encrypt(dbname, masterpassword);
+                dbusername = Cryptography.Encrypt(dbusername, masterpassword);
+                dbpassword = Cryptography.Encrypt(dbpassword, masterpassword);
+                dbnotes = Cryptography.Encrypt(dbnotes, masterpassword);
+
+                SQLiteConnection.ClearAllPools();
+                SQLiteConnection dbConnection;
+                dbConnection =
+                new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
                 using (var myconnection = new SQLiteConnection(dbConnection))
                 {
                     myconnection.Open();
@@ -93,17 +99,17 @@ namespace pswd_manager
                         MessageBox.Show(ex.Message);
                     }
 
-
-
-
-
-
                 }
+                if (this.caller != null)
+                {
+                    this.caller.updateGrid();
+                }
+            }            
+        }
 
-
-
-                
-            }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AddEntry();
         }
         private void URL_TextChanged(object sender, EventArgs e)
             {
@@ -115,6 +121,12 @@ namespace pswd_manager
             generatePassword asd = new generatePassword();
             asd.Show();
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AddEntry();
+            this.Close();
         }
     }
 }

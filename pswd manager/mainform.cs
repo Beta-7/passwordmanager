@@ -43,7 +43,7 @@ namespace pswd_manager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dodadiUser asd = new dodadiUser();
+            dodadiUser asd = new dodadiUser(this);
             asd.Show();
             updateGrid();
         }

@@ -115,7 +115,7 @@ namespace pswd_manager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            generatePassword asd = new generatePassword();
+            generatePassword asd = new generatePassword(this);
             asd.Show();
 
         }

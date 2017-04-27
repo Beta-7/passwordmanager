@@ -15,11 +15,12 @@ namespace pswd_manager
         const string GOLEMI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string MALI = "abcdefghijklmnopqrstuvwxyz";
         const string CIFRI = "0123456789";
-        const string SPECIJALNI = @"~!@#$%^&*():;[]{}<>,.?/\|";
-        string korisnickipromenliva = "";
+        const string SPECIJALNI = @"~!@#$%^&*():;[]{}<>,.?/\|";        
         
         int maxKarakteri = 0;
         Random rnd = new Random(Guid.NewGuid().GetHashCode()); //SUUUUUUUUUUPER BEZBEDEN RANDOM SEED
+        private dodadiUser dodadiUser;
+
         private string RandomPassword()
         {
             string paleta = "";
@@ -52,9 +53,7 @@ namespace pswd_manager
                 rezultat += paleta.Substring(
             rnd.Next(0, paleta.Length), 1);
             }
-            dodadiUser asd = new dodadiUser();
-            asd.password.Text = rezultat;
-            generiranPassword.Text = rezultat;
+            
             return rezultat;
         }
 
@@ -63,9 +62,17 @@ namespace pswd_manager
             InitializeComponent();
         }
 
+        public generatePassword(dodadiUser dodadiUser)
+        {
+            this.dodadiUser = dodadiUser;
+            InitializeComponent();
+        }
+
         private void generirajPassword_Click(object sender, EventArgs e)
         {
-            RandomPassword();
+            string password = RandomPassword();            
+            this.dodadiUser.password.Text = password;
+            this.Close();
         }
 
 

@@ -44,12 +44,7 @@ namespace pswd_manager
             {
                 paleta += SPECIJALNI;
                 maxKarakteri += 26;
-            }
-            if (korisnicki.Checked)
-            {
-                paleta += korisnickitext.Text;
-                maxKarakteri += korisnickitext.TextLength;
-            }
+            }            
             // if (trackBar1.Value > maxKarakteri) { trackBar1.Value = maxKarakteri; izbranaGolemina.Text = trackBar1.Value.ToString(); }
             // nemam pojma zs ustvari go staviv toj del vo kodot, i onaka si raboti kako sto treba bez nego
             while (rezultat.Length < trackBar1.Value)
@@ -77,21 +72,12 @@ namespace pswd_manager
         private void button1_Click(object sender, EventArgs e)
         {
             generiranPassword.Text = RandomPassword();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            korisnickipromenliva = korisnickitext.Text;
-        }
+        }        
 
         private void trackBar1_Scroll_1(object sender, EventArgs e)
         {
             izbranaGolemina.Text = trackBar1.Value.ToString();
         }
-
-        private void korisnickitext_TextChanged(object sender, EventArgs e)
-        {
-            korisnickipromenliva = korisnickitext.Text;
-        }
+        
     }
 }

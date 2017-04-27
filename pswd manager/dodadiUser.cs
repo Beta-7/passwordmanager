@@ -37,7 +37,7 @@ namespace pswd_manager
 
         public dodadiUser(mainform caller)
         {
-            this.caller = caller;
+            this.caller = caller;            
             Init();
         }
         
@@ -100,10 +100,7 @@ namespace pswd_manager
                     }
 
                 }
-                if (this.caller != null)
-                {
-                    this.caller.updateGrid();
-                }
+                this.caller?.updateGrid();
             }            
         }
 

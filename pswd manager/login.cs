@@ -187,7 +187,18 @@ namespace pswd_manager
             return password;
             //return the entered password so it can be used in the next form
         }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            System.Media.SystemSounds.Exclamation.Play();
+            if (MessageBox.Show("Are you sure that you would like to quit the program?", "Are you sure?", MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }                              
+        }
     }
+
     public static class Cryptography
     {
         #region Settings

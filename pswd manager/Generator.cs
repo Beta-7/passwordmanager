@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace pswd_manager
 {
-    public partial class GeneratePassword : Form
+    public partial class GeneratePWForm : Form
     {
         const string GOLEMI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string MALI = "abcdefghijklmnopqrstuvwxyz";
@@ -39,7 +40,7 @@ namespace pswd_manager
             }
             // If (trackBar1.Value > maxKarakteri) { trackBar1.Value = maxKarakteri; izbranaGolemina.Text = trackBar1.Value.ToString(); }
             // nemam pojma zs ustvari go staviv toj del vo kodot, i onaka si raboti kako sto treba bez nego
-            while (rezultat.Length < trackBar1.Value)
+            while (rezultat.Length < passwordLenSlider.Value)
             {
                 rezultat += paleta.Substring(
             rnd.Next(0, paleta.Length), 1);
@@ -47,12 +48,12 @@ namespace pswd_manager
             return rezultat;
         }
 
-        public GeneratePassword()
+        public GeneratePWForm()
         {
             InitializeComponent();
         }
 
-        public GeneratePassword(DodadiUser dodadiUser)
+        public GeneratePWForm(DodadiUser dodadiUser)
         {
             this.dodadiUser = dodadiUser;
             InitializeComponent();
@@ -67,12 +68,23 @@ namespace pswd_manager
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            generiranPassword.Text = RandomPassword();
+            textbox1.Text = RandomPassword();
         }
 
         private void TrackBar1_Scroll_1(object sender, EventArgs e)
         {
-            izbranaGolemina.Text = trackBar1.Value.ToString();
+            passwordLenLB.ForeColor = passwordLenSlider.Value > 7 ? Color.Green : Color.Red; // Make the label that's shows the selected passwords length red (Insecure) if it's length is lower then 7 otherwise show it as green (Secure).
+            passwordLenLB.Text = "Selected password length is " + passwordLenSlider.Value.ToString();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void GeneratePassword_Load(object sender, EventArgs e)
+        {
+            passwordLenLB.Text = "Selected password length is " + passwordLenSlider.Value.ToString();
         }
     }
 }

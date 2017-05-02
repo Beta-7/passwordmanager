@@ -1,6 +1,6 @@
 ﻿namespace pswd_manager
 {
-    partial class loginForm
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.

@@ -13,7 +13,7 @@ namespace pswd_manager
         public static string dbusername;
         public static string dbpassword;
         public static string dbnotes;
-        public mainform caller;
+        public MainForm caller;
 
         public DodadiUser()
         {
@@ -23,11 +23,11 @@ namespace pswd_manager
         public void Init()
         {
             InitializeComponent();
-            loginForm formalogin = new loginForm();
+            LoginForm formalogin = new LoginForm();
             masterpassword = formalogin.Getpassword();
         }
 
-        public DodadiUser(mainform caller)
+        public DodadiUser(MainForm caller)
         {
             this.caller = caller;
             Init();
@@ -40,7 +40,7 @@ namespace pswd_manager
 
         private string Fajl()
         {
-            loginForm fasdorm1 = new loginForm();
+            LoginForm fasdorm1 = new LoginForm();
             return Environment.ExpandEnvironmentVariables("%AppData%") + "\\passwordmanager" + "\\" + fasdorm1.Getuser() + ".sqlite";
         }
 
@@ -104,13 +104,18 @@ namespace pswd_manager
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            GeneratePassword asd = new GeneratePassword(this);
-            asd.Show();
+            GeneratePWForm asd = new GeneratePWForm(this);
+            asd.ShowDialog(this);
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
             AddEntry();
+            Close();
+        }
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
             Close();
         }
     }

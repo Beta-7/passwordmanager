@@ -1,6 +1,6 @@
 ﻿namespace pswd_manager
 {
-    partial class mainform
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usrname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pssword = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -44,12 +50,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.url = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usrname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pssword = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,6 +76,43 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // url
+            // 
+            this.url.HeaderText = "Link";
+            this.url.Name = "url";
+            this.url.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // usrname
+            // 
+            this.usrname.HeaderText = "Username";
+            this.usrname.Name = "usrname";
+            this.usrname.ReadOnly = true;
+            // 
+            // pssword
+            // 
+            this.pssword.HeaderText = "Password";
+            this.pssword.Name = "pssword";
+            this.pssword.ReadOnly = true;
+            // 
+            // notes
+            // 
+            this.notes.HeaderText = "Notes";
+            this.notes.Name = "notes";
+            this.notes.ReadOnly = true;
             // 
             // button1
             // 
@@ -219,44 +256,7 @@
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // url
-            // 
-            this.url.HeaderText = "Link";
-            this.url.Name = "url";
-            this.url.ReadOnly = true;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // usrname
-            // 
-            this.usrname.HeaderText = "Username";
-            this.usrname.Name = "usrname";
-            this.usrname.ReadOnly = true;
-            // 
-            // pssword
-            // 
-            this.pssword.HeaderText = "Password";
-            this.pssword.Name = "pssword";
-            this.pssword.ReadOnly = true;
-            // 
-            // notes
-            // 
-            this.notes.HeaderText = "Notes";
-            this.notes.Name = "notes";
-            this.notes.ReadOnly = true;
-            // 
-            // mainform
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -277,9 +277,10 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "mainform";
-            this.Text = "Betapass";
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Betapass Vault";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

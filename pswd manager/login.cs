@@ -7,13 +7,13 @@ using System.Data.SQLite;
 
 namespace pswd_manager
 {
-    public partial class loginForm : Form
+    public partial class LoginForm : Form
     {
         public static string username;
         public static string password;
         private static string sharedSecret = "asdasdd";
 
-        public loginForm()
+        public LoginForm()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace pswd_manager
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             confirmPWTB.Visible = newUserCB.Checked; //If the checkbox is checked, show another textbox to input the password again
-            continueBtn.Text = newUserCB.Checked ? "&Create user" : "&Login";
+            continueBtn.Text = newUserCB.Checked ? "&Create user" : "&Login"; // If the new user checkbox is checked rename the login button to create user, otherwise keep it at login.
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -117,8 +117,9 @@ namespace pswd_manager
                             password = passwordTB.Text;
                             reader.Close();
                             dbConnection.Close();
-                            mainform form2 = new mainform(); //Close the SQLITE connection and open the main form.
-                            form2.ShowDialog();
+                            MainForm form2 = new MainForm(); //Close the SQLITE connection and open the main form.
+                            Hide();
+                            form2.ShowDialog(this);
                             Close();
                             break;
 
@@ -162,6 +163,7 @@ namespace pswd_manager
 
         private void ShowPWCB_CheckedChanged(object sender, EventArgs e)
         {
+            // Show the entered passwords if the show password checkbox is checked, otherwise hide them.
             passwordTB.PasswordChar = showPWCB.Checked ? '\0' : '*';
             confirmPWTB.PasswordChar = showPWCB.Checked ? '\0' : '*';
         }

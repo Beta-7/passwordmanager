@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace pswd_manager
 {
-    public partial class mainform : Form
+    public partial class MainForm : Form
     {
         public static string masterusername;
         public static bool debug = true;
@@ -15,9 +15,10 @@ namespace pswd_manager
         public static string dbusername;
         public static string dbpassword;
         public static string dbnotes;
+        private LoginForm login = new LoginForm();
         int offset = 0; //se koristi za namaluvanje na id broevite za 2 bidejki id 1 ne se pokazuva zs tamu se cuva master passwordot
 
-        public mainform()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -28,28 +29,28 @@ namespace pswd_manager
                 MessageBox.Show(message);
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            UpdateGrid();
-        }
-
         private string Fajl()
         {
-            loginForm fasdorm1 = new loginForm();
+            LoginForm fasdorm1 = new LoginForm();
             return Environment.ExpandEnvironmentVariables("%AppData%") + "\\passwordmanager" + "\\" + fasdorm1.Getuser() + ".sqlite"; //Get the username variable from the login form and get the path to the file from it
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Text = login.Getuser() + "'s Vault";
+            UpdateGrid();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
             DodadiUser asd = new DodadiUser(this);
-            asd.Show();
+            asd.ShowDialog(this);
             UpdateGrid();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             UpdateGrid();
-
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -58,7 +59,7 @@ namespace pswd_manager
         public void UpdateGrid()
         {
             int brojac = -1; //Counter used to count the id of the datagridview field
-            loginForm fasdorm1 = new loginForm();
+            LoginForm fasdorm1 = new LoginForm();
             masterusername = fasdorm1.Getuser();
             masterpassword = fasdorm1.Getpassword(); //Get the username and password of the user
             dataGridView1.Rows.Clear(); //Clear all the rows
@@ -171,9 +172,6 @@ namespace pswd_manager
                     button5.Visible = true;
                     #endregion
                 }
-
-
-
             }
             else
             {

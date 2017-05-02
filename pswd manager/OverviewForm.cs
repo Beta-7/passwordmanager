@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace pswd_manager
 {
-    public partial class MainForm : Form
+    public partial class OverviewForm : Form
     {
         public static string masterusername;
         public static bool debug = true;
@@ -18,7 +18,7 @@ namespace pswd_manager
         private LoginForm login = new LoginForm();
         int offset = 0; //se koristi za namaluvanje na id broevite za 2 bidejki id 1 ne se pokazuva zs tamu se cuva master passwordot
 
-        public MainForm()
+        public OverviewForm()
         {
             InitializeComponent();
         }

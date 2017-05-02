@@ -1,6 +1,6 @@
 ﻿namespace pswd_manager
 {
-    partial class MainForm
+    partial class OverviewForm
     {
         /// <summary>
         /// Required designer variable.

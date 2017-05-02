@@ -49,43 +49,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dodadiUser.cs">
+    <Compile Include="NewRecordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="dodadiUser.Designer.cs">
-      <DependentUpon>dodadiUser.cs</DependentUpon>
+    <Compile Include="NewRecordForm.Designer.cs">
+      <DependentUpon>NewRecordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generator.cs">
+    <Compile Include="GeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generator.Designer.cs">
-      <DependentUpon>Generator.cs</DependentUpon>
+    <Compile Include="GeneratorForm.Designer.cs">
+      <DependentUpon>GeneratorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="OverviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="OverviewForm.Designer.cs">
+      <DependentUpon>OverviewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="dodadiUser.resx">
-      <DependentUpon>dodadiUser.cs</DependentUpon>
+    <EmbeddedResource Include="NewRecordForm.resx">
+      <DependentUpon>NewRecordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generator.resx">
-      <DependentUpon>Generator.cs</DependentUpon>
+    <EmbeddedResource Include="GeneratorForm.resx">
+      <DependentUpon>GeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="OverviewForm.resx">
+      <DependentUpon>OverviewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -117,7 +117,7 @@ namespace pswd_manager
                             password = passwordTB.Text;
                             reader.Close();
                             dbConnection.Close();
-                            MainForm form2 = new MainForm(); //Close the SQLITE connection and open the main form.
+                            OverviewForm form2 = new OverviewForm(); //Close the SQLITE connection and open the main form.
                             Hide();
                             form2.ShowDialog(this);
                             Close();

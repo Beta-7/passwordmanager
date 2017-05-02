@@ -13,7 +13,7 @@ namespace pswd_manager
         public static string dbusername;
         public static string dbpassword;
         public static string dbnotes;
-        public MainForm caller;
+        public OverviewForm caller;
 
         public DodadiUser()
         {
@@ -27,7 +27,7 @@ namespace pswd_manager
             masterpassword = formalogin.Getpassword();
         }
 
-        public DodadiUser(MainForm caller)
+        public DodadiUser(OverviewForm caller)
         {
             this.caller = caller;
             Init();

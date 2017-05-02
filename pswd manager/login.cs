@@ -118,7 +118,7 @@ namespace pswd_manager
                             dbConnection.Close();
                             mainform form2 = new mainform(); //Close the SQLITE connection and open the main form.
                             form2.ShowDialog();
-                            this.Close();
+                            Close();
                             break;
 
                         }

@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Cryptography;
 using System.Data.SQLite;
 
 namespace pswd_manager
@@ -98,7 +90,7 @@ namespace pswd_manager
                         MessageBox.Show(ex.Message);
                     }
                 }
-                this.caller?.UpdateGrid();
+                caller?.UpdateGrid();
             }
         }
 
@@ -119,7 +111,7 @@ namespace pswd_manager
         private void Button3_Click(object sender, EventArgs e)
         {
             AddEntry();
-            this.Close();
+            Close();
         }
     }
 }

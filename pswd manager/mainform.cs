@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Security.Cryptography;
 using System.Data.SQLite;
-using System.Text;
-using System.IO;
 
 namespace pswd_manager
 {

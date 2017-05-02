@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace pswd_manager
@@ -68,8 +61,8 @@ namespace pswd_manager
         private void GenerirajPassword_Click(object sender, EventArgs e)
         {
             string password = RandomPassword();
-            this.dodadiUser.password.Text = password;
-            this.Close();
+            dodadiUser.password.Text = password;
+            Close();
         }
 
         private void Button1_Click(object sender, EventArgs e)

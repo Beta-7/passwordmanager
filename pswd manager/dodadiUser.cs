@@ -23,7 +23,7 @@ namespace pswd_manager
         public void Init()
         {
             InitializeComponent();
-            Login formalogin = new Login();
+            loginForm formalogin = new loginForm();
             masterpassword = formalogin.Getpassword();
         }
 
@@ -40,7 +40,7 @@ namespace pswd_manager
 
         private string Fajl()
         {
-            Login fasdorm1 = new Login();
+            loginForm fasdorm1 = new loginForm();
             return Environment.ExpandEnvironmentVariables("%AppData%") + "\\passwordmanager" + "\\" + fasdorm1.Getuser() + ".sqlite";
         }
 

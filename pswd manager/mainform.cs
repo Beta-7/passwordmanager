@@ -35,7 +35,7 @@ namespace pswd_manager
 
         private string Fajl()
         {
-            Login fasdorm1 = new Login();
+            loginForm fasdorm1 = new loginForm();
             return Environment.ExpandEnvironmentVariables("%AppData%") + "\\passwordmanager" + "\\" + fasdorm1.Getuser() + ".sqlite"; //Get the username variable from the login form and get the path to the file from it
         }
 
@@ -58,7 +58,7 @@ namespace pswd_manager
         public void UpdateGrid()
         {
             int brojac = -1; //Counter used to count the id of the datagridview field
-            Login fasdorm1 = new Login();
+            loginForm fasdorm1 = new loginForm();
             masterusername = fasdorm1.Getuser();
             masterpassword = fasdorm1.Getpassword(); //Get the username and password of the user
             dataGridView1.Rows.Clear(); //Clear all the rows

@@ -1,6 +1,6 @@
 ﻿namespace pswd_manager
 {
-    partial class Login
+    partial class loginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,65 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.usernameTB = new System.Windows.Forms.TextBox();
+            this.passwordTB = new System.Windows.Forms.TextBox();
+            this.continueBtn = new System.Windows.Forms.Button();
+            this.newUserCB = new System.Windows.Forms.CheckBox();
+            this.confirmPWTB = new System.Windows.Forms.TextBox();
             this.exitBtn = new System.Windows.Forms.Button();
+            this.showPWCB = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // usernameTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.MaxLength = 50;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "User name";
+            this.usernameTB.Location = new System.Drawing.Point(12, 12);
+            this.usernameTB.MaxLength = 50;
+            this.usernameTB.Name = "usernameTB";
+            this.usernameTB.Size = new System.Drawing.Size(100, 20);
+            this.usernameTB.TabIndex = 0;
+            this.usernameTB.Text = "Enter username";
             // 
-            // textBox2
+            // passwordTB
             // 
-            this.textBox2.Location = new System.Drawing.Point(140, 12);
-            this.textBox2.MaxLength = 50;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.Text = "Лозинка";
+            this.passwordTB.Location = new System.Drawing.Point(140, 12);
+            this.passwordTB.MaxLength = 50;
+            this.passwordTB.Name = "passwordTB";
+            this.passwordTB.PasswordChar = '*';
+            this.passwordTB.Size = new System.Drawing.Size(100, 20);
+            this.passwordTB.TabIndex = 1;
+            this.passwordTB.Text = "Enter password";
             // 
-            // button1
+            // continueBtn
             // 
-            this.button1.Location = new System.Drawing.Point(140, 115);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 35);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Continue";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.continueBtn.Location = new System.Drawing.Point(140, 115);
+            this.continueBtn.Name = "continueBtn";
+            this.continueBtn.Size = new System.Drawing.Size(100, 35);
+            this.continueBtn.TabIndex = 5;
+            this.continueBtn.Text = "&Login";
+            this.continueBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.continueBtn.UseVisualStyleBackColor = true;
+            this.continueBtn.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // checkBox1
+            // newUserCB
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 41);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(71, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "New user";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.newUserCB.AutoSize = true;
+            this.newUserCB.Location = new System.Drawing.Point(12, 41);
+            this.newUserCB.Name = "newUserCB";
+            this.newUserCB.Size = new System.Drawing.Size(71, 17);
+            this.newUserCB.TabIndex = 2;
+            this.newUserCB.Text = "&New user";
+            this.newUserCB.UseVisualStyleBackColor = true;
+            this.newUserCB.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
-            // textBox3
+            // confirmPWTB
             // 
-            this.textBox3.Location = new System.Drawing.Point(140, 38);
-            this.textBox3.MaxLength = 50;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.PasswordChar = '*';
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 3;
-            this.textBox3.Text = "Лозинка";
-            this.textBox3.Visible = false;
+            this.confirmPWTB.Location = new System.Drawing.Point(140, 38);
+            this.confirmPWTB.MaxLength = 50;
+            this.confirmPWTB.Name = "confirmPWTB";
+            this.confirmPWTB.PasswordChar = '*';
+            this.confirmPWTB.Size = new System.Drawing.Size(100, 20);
+            this.confirmPWTB.TabIndex = 3;
+            this.confirmPWTB.Text = "Confirm password";
+            this.confirmPWTB.Visible = false;
             // 
             // exitBtn
             // 
@@ -100,22 +101,36 @@
             this.exitBtn.UseVisualStyleBackColor = true;
             this.exitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // login
+            // showPWCB
             // 
+            this.showPWCB.AutoSize = true;
+            this.showPWCB.Location = new System.Drawing.Point(12, 64);
+            this.showPWCB.Name = "showPWCB";
+            this.showPWCB.Size = new System.Drawing.Size(107, 17);
+            this.showPWCB.TabIndex = 6;
+            this.showPWCB.Text = "&Show Passwords";
+            this.showPWCB.UseVisualStyleBackColor = true;
+            this.showPWCB.CheckedChanged += new System.EventHandler(this.ShowPWCB_CheckedChanged);
+            // 
+            // loginForm
+            // 
+            this.AcceptButton = this.continueBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.exitBtn;
             this.ClientSize = new System.Drawing.Size(256, 162);
+            this.Controls.Add(this.showPWCB);
             this.Controls.Add(this.exitBtn);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.confirmPWTB);
+            this.Controls.Add(this.newUserCB);
+            this.Controls.Add(this.continueBtn);
+            this.Controls.Add(this.passwordTB);
+            this.Controls.Add(this.usernameTB);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "login";
+            this.Name = "loginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Betapass - login";
+            this.Text = "Login in to Betapass";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -124,12 +139,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox usernameTB;
+        private System.Windows.Forms.Button continueBtn;
+        private System.Windows.Forms.CheckBox newUserCB;
+        private System.Windows.Forms.TextBox confirmPWTB;
+        private System.Windows.Forms.TextBox passwordTB;
         private System.Windows.Forms.Button exitBtn;
+        private System.Windows.Forms.CheckBox showPWCB;
     }
 }
 

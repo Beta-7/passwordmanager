@@ -7,13 +7,13 @@ using System.Data.SQLite;
 
 namespace pswd_manager
 {
-    public partial class Login : Form
+    public partial class loginForm : Form
     {
         public static string username;
         public static string password;
         private static string sharedSecret = "asdasdd";
 
-        public Login()
+        public loginForm()
         {
             InitializeComponent();
         }
@@ -25,26 +25,27 @@ namespace pswd_manager
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            textBox3.Visible = checkBox1.Checked; //If the checkbox is checked, show another textbox to input the password again
+            confirmPWTB.Visible = newUserCB.Checked; //If the checkbox is checked, show another textbox to input the password again
+            continueBtn.Text = newUserCB.Checked ? "&Create user" : "&Login";
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            string databasefajl = Appdatafolder() + "\\" + textBox1.Text + ".sqlite";
+            string databasefajl = Appdatafolder() + "\\" + usernameTB.Text + ".sqlite";
 
             #region checked
-            if (checkBox1.Checked) //If they selected the register option
+            if (newUserCB.Checked) //If they selected the register option
             {
-                if (textBox2.Text == textBox3.Text) //Check if both of the passwords are the same
+                if (passwordTB.Text == confirmPWTB.Text) //Check if both of the passwords are the same
                 {
-                    if (textBox1.Text != "") //Check if the first password field is empty
+                    if (usernameTB.Text != "") //Check if the first password field is empty
                     {
-                        if (textBox2.Text != "") //Check if the second password field is empty
+                        if (passwordTB.Text != "") //Check if the second password field is empty
                         {
                             if (!File.Exists(databasefajl)) //If the file doesn't exist already, as in the username hasn't been registered
                             {
-                                sharedSecret = textBox2.Text;
-                                string enkriptirandavid = Cryptography.Encrypt(sharedSecret, textBox2.Text); //encrypt the password with itself
+                                sharedSecret = passwordTB.Text;
+                                string enkriptirandavid = Cryptography.Encrypt(sharedSecret, passwordTB.Text); //encrypt the password with itself
                                 SQLiteConnection.CreateFile(databasefajl); //Create a db file in %appdata% named username.sqlite
                                 SQLiteConnection dbConnection;
                                 dbConnection =
@@ -70,7 +71,7 @@ namespace pswd_manager
                                         MessageBox.Show(ex.Message);
                                     }
 
-                                    checkBox1.Checked = false;
+                                    newUserCB.Checked = false;
                                     MessageBox.Show("Успешна регистрација"); //Successful registration
                                 }
                             }
@@ -99,7 +100,7 @@ namespace pswd_manager
             {
                 if (File.Exists(databasefajl)) //If the file exists already, when the username has been registered
                 {
-                    sharedSecret = textBox2.Text;
+                    sharedSecret = passwordTB.Text;
                     SQLiteConnection dbConnection;
                     dbConnection =
                     new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
@@ -109,11 +110,11 @@ namespace pswd_manager
                     SQLiteDataReader reader = command.ExecuteReader(); //Get the records inside
                     while (reader.Read())
                     { //If (textBox2.Text == Cryptography.Decrypt(reader["URL"].ToString(), sharedsecret))
-                        if (Cryptography.Encrypt(textBox2.Text, sharedSecret) == reader["URL"].ToString())
+                        if (Cryptography.Encrypt(passwordTB.Text, sharedSecret) == reader["URL"].ToString())
                         //Encrypt the entered password with the one that is in the first record of the file
                         {
-                            username = textBox1.Text;
-                            password = textBox2.Text;
+                            username = usernameTB.Text;
+                            password = passwordTB.Text;
                             reader.Close();
                             dbConnection.Close();
                             mainform form2 = new mainform(); //Close the SQLITE connection and open the main form.
@@ -141,7 +142,7 @@ namespace pswd_manager
         {
             string AppData = Environment.ExpandEnvironmentVariables("%AppData%"); //path to %appdata%
             string folder = AppData + "\\passwordmanager";
-            return folder; //Return the path to the passwordmanager folder
+            return folder; //Return the path to the password manager folder
         }
 
         public string Getuser()
@@ -156,12 +157,13 @@ namespace pswd_manager
 
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            System.Media.SystemSounds.Exclamation.Play();
-            if (MessageBox.Show("Are you sure that you would like to quit the program?", "Are you sure?", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            Application.Exit();
+        }
+
+        private void ShowPWCB_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordTB.PasswordChar = showPWCB.Checked ? '\0' : '*';
+            confirmPWTB.PasswordChar = showPWCB.Checked ? '\0' : '*';
         }
     }
 

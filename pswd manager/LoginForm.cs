@@ -31,8 +31,10 @@ namespace pswd_manager
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            usernameTB.Text.Trim(); passwordTB.Text.Trim(); confirmPWTB.Text.Trim(); // Remove whitespace from the input entered into the textboxes.
             string databasefajl = Appdatafolder() + "\\" + usernameTB.Text + ".sqlite";
 
+            //TODO: Rework authentication logic
             #region checked
             if (newUserCB.Checked) //If they selected the register option
             {
@@ -45,7 +47,7 @@ namespace pswd_manager
                             if (!File.Exists(databasefajl)) //If the file doesn't exist already, as in the username hasn't been registered
                             {
                                 sharedSecret = passwordTB.Text;
-                                string enkriptirandavid = Cryptography.Encrypt(sharedSecret, passwordTB.Text); //encrypt the password with itself
+                                string enkriptirandavid = Cryptography.Encrypt(sharedSecret, passwordTB.Text); //Encrypt the password with itself
                                 SQLiteConnection.CreateFile(databasefajl); //Create a db file in %appdata% named username.sqlite
                                 SQLiteConnection dbConnection;
                                 dbConnection =
@@ -72,27 +74,27 @@ namespace pswd_manager
                                     }
 
                                     newUserCB.Checked = false;
-                                    MessageBox.Show("Успешна регистрација"); //Successful registration
+                                    MessageBox.Show("Registration was successful"); //Successful registration
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("Корисничкото име веке постои"); //Username already exists
+                                MessageBox.Show("That your name is already taken."); //Username already exists
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Немате внесено лозинка"); //No password entered
+                            MessageBox.Show("A password must be entered."); //No password entered
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Немате внесено корисничко име"); //No username entered
+                        MessageBox.Show("A username must be entered."); //No username entered
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Лозинките не се исти"); //Password mismatch
+                    MessageBox.Show("The passwords do not match each other."); //Password mismatch
                 }
             }
             #endregion 

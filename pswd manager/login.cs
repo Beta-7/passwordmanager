@@ -12,7 +12,7 @@ namespace pswd_manager
         public static string username;
         public static string password;
         private static string sharedSecret = "asdasdd";
-
+  
         public LoginForm()
         {
             InitializeComponent();

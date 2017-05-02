@@ -53,9 +53,6 @@ namespace pswd_manager
             UpdateGrid();
         }
 
-        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
-
         public void UpdateGrid()
         {
             int brojac = -1; //Counter used to count the id of the datagridview field

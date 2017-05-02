@@ -36,11 +36,11 @@ namespace pswd_manager
             #region checked
             if (newUserCB.Checked) //If they selected the register option
             {
-                if (passwordTB.Text == confirmPWTB.Text) //Check if both of the passwords are the same
+                if (passwordTB.Text.Equals(confirmPWTB.Text, StringComparison.Ordinal)) //Check if both of the passwords are the same
                 {
-                    if (usernameTB.Text != "") //Check if the first password field is empty
+                    if (!string.IsNullOrWhiteSpace(usernameTB.Text)) //Check if the first password field is empty
                     {
-                        if (passwordTB.Text != "") //Check if the second password field is empty
+                        if (!string.IsNullOrWhiteSpace(passwordTB.Text)) //Check if the second password field is empty
                         {
                             if (!File.Exists(databasefajl)) //If the file doesn't exist already, as in the username hasn't been registered
                             {

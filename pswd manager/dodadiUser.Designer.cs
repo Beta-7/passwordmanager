@@ -1,6 +1,6 @@
 ﻿namespace pswd_manager
 {
-    partial class dodadiUser
+    partial class DodadiUser
     {
         /// <summary>
         /// Required designer variable.
@@ -132,7 +132,7 @@
             this.button1.TabIndex = 11;
             this.button1.Text = "Add and Continue";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button2
             // 
@@ -141,7 +141,7 @@
             this.button2.Size = new System.Drawing.Size(21, 18);
             this.button2.TabIndex = 12;
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // button3
             // 
@@ -151,7 +151,7 @@
             this.button3.TabIndex = 13;
             this.button3.Text = "Add and Close";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // dodadiUser
             // 

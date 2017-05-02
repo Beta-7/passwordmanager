@@ -12,7 +12,7 @@ using System.Data.SQLite;
 
 namespace pswd_manager
 {
-    public partial class dodadiUser : Form
+    public partial class DodadiUser : Form
     {
         public static string masterusername;
         public static string masterpassword;
@@ -22,7 +22,8 @@ namespace pswd_manager
         public static string dbpassword;
         public static string dbnotes;
         public mainform caller;
-        public dodadiUser()
+
+        public DodadiUser()
         {
             Init();
         }
@@ -30,26 +31,25 @@ namespace pswd_manager
         public void Init()
         {
             InitializeComponent();
-            login formalogin = new login();
-
-            masterpassword = formalogin.getpassword();
+            Login formalogin = new Login();
+            masterpassword = formalogin.Getpassword();
         }
 
-        public dodadiUser(mainform caller)
+        public DodadiUser(mainform caller)
         {
-            this.caller = caller;            
+            this.caller = caller;
             Init();
         }
-        
-        public void setPassword(string password)
+
+        public void SetPassword(string password)
         {
             this.password.Text = password;
         }
-        private string fajl()
-        {
-            login fasdorm1 = new login();
-            return Environment.ExpandEnvironmentVariables("%AppData%") + "\\passwordmanager" + "\\" + fasdorm1.getuser() + ".sqlite";
 
+        private string Fajl()
+        {
+            Login fasdorm1 = new Login();
+            return Environment.ExpandEnvironmentVariables("%AppData%") + "\\passwordmanager" + "\\" + fasdorm1.Getuser() + ".sqlite";
         }
 
         private void AddEntry()
@@ -61,7 +61,6 @@ namespace pswd_manager
                 dbusername = username.Text;
                 dbpassword = password.Text;
                 dbnotes = notes.Text;
-
                 dburl = Cryptography.Encrypt(dburl, masterpassword);
                 dbname = Cryptography.Encrypt(dbname, masterpassword);
                 dbusername = Cryptography.Encrypt(dbusername, masterpassword);
@@ -71,7 +70,7 @@ namespace pswd_manager
                 SQLiteConnection.ClearAllPools();
                 SQLiteConnection dbConnection;
                 dbConnection =
-                new SQLiteConnection("Data Source=" + fajl() + ";Version=3;");
+                new SQLiteConnection("Data Source=" + Fajl() + ";Version=3;");
                 using (var myconnection = new SQLiteConnection(dbConnection))
                 {
                     myconnection.Open();
@@ -88,9 +87,9 @@ namespace pswd_manager
                         command.Parameters.AddWithValue("@visible", 1);
 
 
-                        //  string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
-                        //   SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
-                        //  izvrsikomanda.ExecuteNonQuery();
+                        // string komanda = "insert into passwords (url, name, username, password, notes) values ('" + dburl + "', '" + dbname + "', '" + dbusername + "', '" + dbpassword + "', '" + dbnotes + "');";
+                        // SQLiteCommand izvrsikomanda = new SQLiteCommand(komanda, myconnection);
+                        // izvrsikomanda.ExecuteNonQuery();
                         command.ExecuteNonQuery();
                         myconnection.Close();
                     }
@@ -98,29 +97,26 @@ namespace pswd_manager
                     {
                         MessageBox.Show(ex.Message);
                     }
-
                 }
-                this.caller?.updateGrid();
-            }            
+                this.caller?.UpdateGrid();
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             AddEntry();
         }
+
         private void URL_TextChanged(object sender, EventArgs e)
-            {
+        {}
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
-            generatePassword asd = new generatePassword(this);
+            GeneratePassword asd = new GeneratePassword(this);
             asd.Show();
-
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             AddEntry();
             this.Close();

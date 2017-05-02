@@ -10,16 +10,15 @@ using System.Windows.Forms;
 
 namespace pswd_manager
 {
-    public partial class generatePassword : Form
+    public partial class GeneratePassword : Form
     {
         const string GOLEMI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const string MALI = "abcdefghijklmnopqrstuvwxyz";
         const string CIFRI = "0123456789";
-        const string SPECIJALNI = @"~!@#$%^&*():;[]{}<>,.?/\|";        
-        
+        const string SPECIJALNI = @"~!@#$%^&*():;[]{}<>,.?/\|";
         int maxKarakteri = 0;
         Random rnd = new Random(Guid.NewGuid().GetHashCode()); //SUUUUUUUUUUPER BEZBEDEN RANDOM SEED
-        private dodadiUser dodadiUser;
+        private DodadiUser dodadiUser;
 
         private string RandomPassword()
         {
@@ -29,7 +28,6 @@ namespace pswd_manager
             {
                 paleta += MALI;
                 maxKarakteri += 26;
-
             }
             if (golemi.Checked)
             {
@@ -45,46 +43,43 @@ namespace pswd_manager
             {
                 paleta += SPECIJALNI;
                 maxKarakteri += 26;
-            }            
-            // if (trackBar1.Value > maxKarakteri) { trackBar1.Value = maxKarakteri; izbranaGolemina.Text = trackBar1.Value.ToString(); }
+            }
+            // If (trackBar1.Value > maxKarakteri) { trackBar1.Value = maxKarakteri; izbranaGolemina.Text = trackBar1.Value.ToString(); }
             // nemam pojma zs ustvari go staviv toj del vo kodot, i onaka si raboti kako sto treba bez nego
             while (rezultat.Length < trackBar1.Value)
             {
                 rezultat += paleta.Substring(
             rnd.Next(0, paleta.Length), 1);
             }
-            
             return rezultat;
         }
 
-        public generatePassword()
+        public GeneratePassword()
         {
             InitializeComponent();
         }
 
-        public generatePassword(dodadiUser dodadiUser)
+        public GeneratePassword(DodadiUser dodadiUser)
         {
             this.dodadiUser = dodadiUser;
             InitializeComponent();
         }
 
-        private void generirajPassword_Click(object sender, EventArgs e)
+        private void GenerirajPassword_Click(object sender, EventArgs e)
         {
-            string password = RandomPassword();            
+            string password = RandomPassword();
             this.dodadiUser.password.Text = password;
             this.Close();
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             generiranPassword.Text = RandomPassword();
-        }        
+        }
 
-        private void trackBar1_Scroll_1(object sender, EventArgs e)
+        private void TrackBar1_Scroll_1(object sender, EventArgs e)
         {
             izbranaGolemina.Text = trackBar1.Value.ToString();
         }
-        
     }
 }

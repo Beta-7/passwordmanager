@@ -1,6 +1,6 @@
 ﻿namespace pswd_manager
 {
-    partial class generatePassword
+    partial class GeneratePassword
     {
         /// <summary>
         /// Required designer variable.
@@ -58,7 +58,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(260, 45);
             this.trackBar1.TabIndex = 24;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll_1);
+            this.trackBar1.Scroll += new System.EventHandler(this.TrackBar1_Scroll_1);
             // 
             // label4
             // 
@@ -151,7 +151,7 @@
             this.generirajPassword.TabIndex = 14;
             this.generirajPassword.Text = "Generate";
             this.generirajPassword.UseVisualStyleBackColor = true;
-            this.generirajPassword.Click += new System.EventHandler(this.generirajPassword_Click);
+            this.generirajPassword.Click += new System.EventHandler(this.GenerirajPassword_Click);
             // 
             // generatePassword
             // 

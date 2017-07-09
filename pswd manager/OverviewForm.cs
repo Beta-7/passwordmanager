@@ -217,6 +217,7 @@ namespace pswd_manager
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
         private void Button5_Click(object sender, EventArgs e)
@@ -246,6 +247,22 @@ namespace pswd_manager
             {
                 MessageBox.Show(ex.Message);
             }
+            if (dataGridView1.Rows.Count == 0)
+            {
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
+                textBox1.Visible = false;
+                textBox2.Visible = false;
+                textBox3.Visible = false;
+                textBox4.Visible = false;
+                textBox5.Visible = false;
+                button4.Visible = false;
+                button5.Visible = false;
+            }
+    
         }
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

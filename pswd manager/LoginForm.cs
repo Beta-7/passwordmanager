@@ -31,14 +31,12 @@ namespace pswd_manager
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            proceed(usernameTB.Text, passwordTB.Text);
+            proceed();
         }
-
-        private void proceed(string username, string password)
+        private void proceed()
         {
-
             usernameTB.Text.Trim(); passwordTB.Text.Trim(); confirmPWTB.Text.Trim(); // Remove whitespace from the input entered into the textboxes.
-            string databasefajl = Appdatafolder() + "\\" + username + ".sqlite";
+            string databasefajl = Appdatafolder() + "\\" + usernameTB.Text + ".sqlite";
 
             //TODO: Rework authentication logic
             #region checked
@@ -46,14 +44,14 @@ namespace pswd_manager
             {
                 if (passwordTB.Text.Equals(confirmPWTB.Text, StringComparison.Ordinal)) //Check if both of the passwords are the same
                 {
-                    if (!string.IsNullOrWhiteSpace(username)) //Check if the first password field is empty
+                    if (!string.IsNullOrWhiteSpace(usernameTB.Text)) //Check if the first password field is empty
                     {
-                        if (!string.IsNullOrWhiteSpace(password)) //Check if the second password field is empty
+                        if (!string.IsNullOrWhiteSpace(passwordTB.Text)) //Check if the second password field is empty
                         {
                             if (!File.Exists(databasefajl)) //If the file doesn't exist already, as in the username hasn't been registered
                             {
-                                sharedSecret = password;
-                                string enkriptirandavid = Cryptography.Encrypt(sharedSecret, password); //Encrypt the password with itself
+                                sharedSecret = passwordTB.Text;
+                                string enkriptirandavid = Cryptography.Encrypt(sharedSecret, passwordTB.Text); //Encrypt the password with itself
                                 SQLiteConnection.CreateFile(databasefajl); //Create a db file in %appdata% named username.sqlite
                                 SQLiteConnection dbConnection;
                                 dbConnection =
@@ -81,7 +79,7 @@ namespace pswd_manager
 
                                     newUserCB.Checked = false;
                                     MessageBox.Show("Registration was successful"); //Successful registration
-                                    proceed(username, password);
+                                    proceed();
                                 }
                             }
                             else
@@ -109,7 +107,7 @@ namespace pswd_manager
             {
                 if (File.Exists(databasefajl)) //If the file exists already, when the username has been registered
                 {
-                    sharedSecret = password;
+                    sharedSecret = passwordTB.Text;
                     SQLiteConnection dbConnection;
                     dbConnection =
                     new SQLiteConnection("Data Source=" + databasefajl + ";Version=3;");
@@ -119,9 +117,11 @@ namespace pswd_manager
                     SQLiteDataReader reader = command.ExecuteReader(); //Get the records inside
                     while (reader.Read())
                     { //If (textBox2.Text == Cryptography.Decrypt(reader["URL"].ToString(), sharedsecret))
-                        if (Cryptography.Encrypt(password, sharedSecret) == reader["URL"].ToString())
+                        if (Cryptography.Encrypt(passwordTB.Text, sharedSecret) == reader["URL"].ToString())
                         //Encrypt the entered password with the one that is in the first record of the file
                         {
+                            username = usernameTB.Text;
+                            password = passwordTB.Text;
                             reader.Close();
                             dbConnection.Close();
                             OverviewForm form2 = new OverviewForm(); //Close the SQLITE connection and open the main form.
@@ -145,6 +145,7 @@ namespace pswd_manager
                 }
             }
         }
+
         private string Appdatafolder()
         {
             string AppData = Environment.ExpandEnvironmentVariables("%AppData%"); //path to %appdata%
